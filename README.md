@@ -104,7 +104,7 @@ Matches the provided input with the predefined list of items and returns the bes
     "unit_of_measure": "M2",
     "rate": 23.0
   },
-  "similarity_score": 0.75
+  "similarity_score": 1
 }
 ```
 
