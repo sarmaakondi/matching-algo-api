@@ -35,3 +35,21 @@ def test_exact_match():
     assert data["best_match"]["unit_of_measure"] == "M2"
     assert data["best_match"]["rate"] == 23
     assert data["similarity_score"] == 1
+
+
+# Test case for partial match
+def test_partial_match():
+    # Make a POST request to the /api/match endpoint
+    response = client.post(
+        "/api/match", json={"trade": "paint", "unit_of_measure": "test"}
+    )
+
+    # Assert the status code
+    assert response.status_code == 200
+
+    # Assert the response
+    data = response.json()
+    assert data["best_match"]["trade"] == "Painting"
+    assert data["best_match"]["unit_of_measure"] == "HOURS"
+    assert data["best_match"]["rate"] == 55
+    assert data["similarity_score"] > 0.38
