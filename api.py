@@ -28,10 +28,8 @@ items = [
 
 # Pydantic model for the request
 class ItemRequest(BaseModel):
-    trade: Optional[str] = Field(None, description="The trade to search for")
-    unit_of_measure: Optional[str] = Field(
-        None, description="The unit of measure to search for"
-    )
+    trade: Optional[str] = Field(None)
+    unit_of_measure: Optional[str] = Field(None)
 
 
 # Pydantic model for the response
