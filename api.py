@@ -1,4 +1,6 @@
 from fastapi import APIRouter
+from pydantic import BaseModel, Field
+from typing import Optional
 
 # Initialize the APIRouter
 router = APIRouter()
@@ -21,6 +23,26 @@ items = [
     {"trade": "Painting", "unit_of_measure": "HOURS", "rate": 55.0},
     {"trade": "Joinery", "unit_of_measure": "EACH", "rate": 200.0},
 ]
+
+
+# Pydantic model for the request
+class ItemRequest(BaseModel):
+    trade: Optional[str] = Field(None, description="The trade to search for")
+    unit_of_measure: Optional[str] = Field(
+        None, description="The unit of measure to search for"
+    )
+
+
+# Pydantice model for the response
+class ItemDetails(BaseModel):
+    trade: str
+    unit_of_measure: str
+    rate: float
+
+
+class MatchResponse(BaseModel):
+    best_match: ItemDetails
+    similarity_score: float
 
 
 # API endpoint to return all the items
