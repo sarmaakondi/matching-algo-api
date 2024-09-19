@@ -53,3 +53,18 @@ def test_partial_match():
     assert data["best_match"]["unit_of_measure"] == "HOURS"
     assert data["best_match"]["rate"] == 55
     assert data["similarity_score"] > 0.38
+
+
+# Test case for no match
+def test_no_match():
+    # Make a POST request to the /api/match endpoint
+    response = client.post(
+        "/api/match", json={"trade": "sarma", "unit_of_measure": "incorrect"}
+    )
+
+    # Assert the status code
+    assert response.status_code == 404
+
+    # Assert the response
+    data = response.json()
+    assert data == {"detail": "No matching item found for the provided input."}
