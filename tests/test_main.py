@@ -68,3 +68,18 @@ def test_no_match():
     # Assert the response
     data = response.json()
     assert data == {"detail": "No matching item found for the provided input."}
+
+
+# Test case for empty input
+def test_empty_input():
+    # Make a POST request to the /api/match endpoint
+    response = client.post(
+        "/api/match", json={"trade": "", "unit_of_measure": ""}
+    )
+
+    # Assert the status code
+    assert response.status_code == 400
+
+    # Assert the response
+    data = response.json()
+    assert data == {"detail": "'trade' and 'unit_of_measure' cannot be empty."}
